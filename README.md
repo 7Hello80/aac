@@ -6,14 +6,14 @@
 ### 跨源隔离与多线程核心
 
 多线程核心依赖 `SharedArrayBuffer`，需要页面开启跨源隔离（COOP/COEP 响应头）。
-GitHub Pages 无法自定义响应头，本项目通过 `public/coi-sw.js` 这个 Service Worker
+GitHub Pages 无法自定义响应头，本站通过 `coi-sw.js` 这个 Service Worker
 **自动补上响应头**，无需任何服务端配置。首次访问会自动重载一次页面以完成隔离，
 之后即启用多线程核心，转换速度显著提升。
 
 自建托管（nginx 等）时可以二选一：
 
 1. 沿用上述 SW 方案（零配置，但多一次首次重载）
-2. 由服务器直接下发响应头（开发/预览服务器已在 `vite.config.js` 配好），SW 检测到已隔离后不会重载：
+2. 由服务器直接下发响应头，SW 检测到已隔离后不会重载：
 
 ```nginx
 server {
